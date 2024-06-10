@@ -44,7 +44,9 @@ for line in formattedImageList:
 todo: 
 virtual environments and that [X]
 decipher line 28 []
+output a single string []
 object orientify[]
 save output to a file []
+add any image as input []
 '''
 
