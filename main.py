@@ -25,7 +25,7 @@ def greyImage(image):
 # Turn the pixels in the image to an ascii character
 def pixelsToAscii(image, characterList):
     pixels = image.getdata()
-    characters = "".join([characterList[pixel//25] for pixel in pixels]) # Code from the internet... for now
+    characters = "".join([characterList[pixel//15] for pixel in pixels]) # Code from the internet... for now
     return characters
 
 imageWidth = 100
@@ -34,9 +34,12 @@ image = greyImage(image)
 unformattedCharacters = pixelsToAscii(image, characterList)
 pixel_count = len(unformattedCharacters)
 formattedImageList = [unformattedCharacters[i:i+imageWidth] for i in range(0, len(unformattedCharacters), imageWidth)]
+formattedImage = ''
 
 for line in formattedImageList:
-    print (line)
+    formattedImage += line + '\n'
+    
+print(formattedImage)
 
 
 
