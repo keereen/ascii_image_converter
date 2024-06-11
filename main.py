@@ -1,7 +1,8 @@
 from PIL import Image
 
 # Grayscale from dark to light ascii characters I found on Stack Overflow
-characters = """$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1[]?-_+~<>i!lI;:,"^`'. """
+characters = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/()1[]?-_+~<>i!lI;:,^`'. "
+characters = characters[::-1] # invert the colours
 characterList = list(characters)
 
 #print(characterList)
@@ -25,7 +26,7 @@ def greyImage(image):
 # Turn the pixels in the image to an ascii character
 def pixelsToAscii(image, characterList):
     pixels = image.getdata()
-    characters = "".join([characterList[pixel//15] for pixel in pixels]) # Code from the internet... for now
+    characters = "".join([characterList[pixel//25] for pixel in pixels]) # List comprehension
     return characters
 
 imageWidth = 100
@@ -46,8 +47,9 @@ print(formattedImage)
 '''
 todo: 
 virtual environments and that [X]
-decipher line 28 []
-output a single string []
+decipher line 28 [X]
+output a single string [X]
+^^ less hacky version []
 object orientify[]
 save output to a file []
 add any image as input []
