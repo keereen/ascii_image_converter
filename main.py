@@ -55,7 +55,7 @@ imageAsciifier = ImageAsciifier()
 final = imageAsciifier.imageAsciify(image)
 print(final)
 
-
+# branch test
 
 
 '''
