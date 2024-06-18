@@ -1,46 +1,60 @@
 from PIL import Image
 
-# Grayscale from dark to light ascii characters I found on Stack Overflow
-characters = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/()1[]?-_+~<>i!lI;:,^`'. "
-characters = characters[::-1] # invert the colours
-characterList = list(characters)
+class ImageAsciifier:
+    def __init__(self):
+        # Grayscale from dark to light ascii characters I found on Stack Overflow
+        characters = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/()1[]?-_+~<>i!lI;:,^`'. "
+        characters = characters[::-1] # invert the colours
+        self.characterList = list(characters)
+        #print(self.characterList)
 
-#print(characterList)
+    # Resize the image
+    def resizeImage(self, image, imageWidth = 100):
+        width, height = image.size
+        ratio = height / width
+        imageHeight = int(imageWidth * ratio)
+        resizedImage = image.resize((imageWidth, imageHeight))
+        return resizedImage
 
-# Open the image
-image = Image.open('thumb_cat.jpg')
+    # Turn an image to greyscale
+    def greyImage(self, image):
+        greyscaleImage = image.convert("L")
+        return greyscaleImage
 
-# Resize the image
-def resizeImage(image, imageWidth):
-    width, height = image.size
-    ratio = height / width
-    imageHeight = int(imageWidth * ratio)
-    resizedImage = image.resize((imageWidth, imageHeight))
-    return resizedImage
+    # Turn the pixels in the image to an ascii character
+    def pixelsToAscii(self, image, characterList):
+        pixels = image.getdata()
+        characters = "".join([characterList[pixel//25] for pixel in pixels]) # List comprehension
+        return characters
 
-# Turn an image to greyscale
-def greyImage(image):
-    greyscaleImage = image.convert("L")
-    return greyscaleImage
+    def formatCharacters(self, unformattedCharacters, imageWidth = 100):
+        pixel_count = len(unformattedCharacters)
+        formattedCharacterList = [unformattedCharacters[i:i+imageWidth] for i in range(0, len(unformattedCharacters), imageWidth)]
+        formattedCharacters = ''
 
-# Turn the pixels in the image to an ascii character
-def pixelsToAscii(image, characterList):
-    pixels = image.getdata()
-    characters = "".join([characterList[pixel//25] for pixel in pixels]) # List comprehension
-    return characters
+        for line in formattedCharacterList:
+            formattedCharacters += line + '\n'
+            
+        return formattedCharacters
 
-imageWidth = 100
-image = resizeImage(image, imageWidth)
-image = greyImage(image)
-unformattedCharacters = pixelsToAscii(image, characterList)
-pixel_count = len(unformattedCharacters)
-formattedImageList = [unformattedCharacters[i:i+imageWidth] for i in range(0, len(unformattedCharacters), imageWidth)]
-formattedImage = ''
+    def imageAsciify(self, image, imageWidth = 100):
+        
+        # start asciification
+        print(image)
+        rezisedImage = self.resizeImage(image, imageWidth)
+        greyscaleImage = self.greyImage(rezisedImage)
+        unformattedCharacters = self.pixelsToAscii(greyscaleImage, self.characterList)
 
-for line in formattedImageList:
-    formattedImage += line + '\n'
-    
-print(formattedImage)
+        finalAscii = self.formatCharacters(unformattedCharacters)
+        return finalAscii
+
+# open the image
+image = Image.open('cat.png')
+print(image)
+imageAsciifier = ImageAsciifier()
+final = imageAsciifier.imageAsciify(image)
+print(final)
+
 
 
 
@@ -50,8 +64,14 @@ virtual environments and that [X]
 decipher line 28 [X]
 output a single string [X]
 ^^ less hacky version []
-object orientify[]
-save output to a file []
-add any image as input []
+object orientify[X]
+Make proper objects and that []
+Private and public functions []
+comment everything []
+customisable output character width []
+customisable character list []
+Toggle for inverted colours []
+save output to a file (output class) []
+add any image as input (input class) []
 '''
 
