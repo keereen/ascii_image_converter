@@ -40,7 +40,7 @@ class ImageAsciifier:
     def imageAsciify(self, image, imageWidth = 100):
         
         # start asciification
-        print(image)
+        print(image
         rezisedImage = self.resizeImage(image, imageWidth)
         greyscaleImage = self.greyImage(rezisedImage)
         unformattedCharacters = self.pixelsToAscii(greyscaleImage, self.characterList)
@@ -67,6 +67,8 @@ output a single string [X]
 object orientify[X]
 Make proper objects and that []
 Private and public functions []
+simple unit tests []
+run tests in github actions on commit []
 comment everything []
 customisable output character width []
 customisable character list []
