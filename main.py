@@ -1,11 +1,12 @@
 from PIL import Image
 
 class ImageAsciifier:
-    def __init__(self):
+    def __init__(self, image):
         # Grayscale from dark to light ascii characters I found on Stack Overflow
         characters = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/()1[]?-_+~<>i!lI;:,^`'. "
         characters = characters[::-1] # invert the colours
         self.characterList = list(characters)
+        self.image = image
         #print(self.characterList)
 
     # Resize the image
@@ -37,10 +38,11 @@ class ImageAsciifier:
             
         return formattedCharacters
 
-    def imageAsciify(self, image, imageWidth = 100):
+    def imageAsciify(self, imageWidth = 100):
         
+        image = self.image
+
         # start asciification
-        print(image
         rezisedImage = self.resizeImage(image, imageWidth)
         greyscaleImage = self.greyImage(rezisedImage)
         unformattedCharacters = self.pixelsToAscii(greyscaleImage, self.characterList)
@@ -50,30 +52,12 @@ class ImageAsciifier:
 
 # open the image
 image = Image.open('cat.png')
-print(image)
-imageAsciifier = ImageAsciifier()
-final = imageAsciifier.imageAsciify(image)
-print(final)
+#print(image)
+imageAsciifier = ImageAsciifier(image)
+print(imageAsciifier.imageAsciify())
+
 
 # branch test
 
 
-'''
-todo: 
-virtual environments and that [X]
-decipher line 28 [X]
-output a single string [X]
-^^ less hacky version []
-object orientify[X]
-Make proper objects and that []
-Private and public functions []
-simple unit tests []
-run tests in github actions on commit []
-comment everything []
-customisable output character width []
-customisable character list []
-Toggle for inverted colours []
-save output to a file (output class) []
-add any image as input (input class) []
-'''
 
